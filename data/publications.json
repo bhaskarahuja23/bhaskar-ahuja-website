@@ -1,0 +1,53 @@
+{
+  "items": [
+    {
+      "year": "2026",
+      "type": "conference",
+      "title": "Performance Evaluation of Radar Architectures with Radio Telescopes as Bistatic Receivers for GEO Tracking",
+      "authors": "Bhaskar Ahuja, Luca Gentile, Marco Martorella",
+      "venue": "5th IAA Space Situational Awareness Conference"
+    },
+    {
+      "year": "2025",
+      "type": "journal",
+      "title": "Role of radio telescopes in space debris monitoring: Current insights and future directions",
+      "authors": "Bhaskar Ahuja, Luca Gentile, Ajeet Kumar, Marco Martorella",
+      "venue": "Sensors, 25(9), 2900"
+    },
+    {
+      "year": "2025",
+      "type": "journal",
+      "title": "Physics-Aware Neural Networks for Satellite Tracking",
+      "authors": "Bhaskar Ahuja, Luca Gentile, Marco Martorella",
+      "venue": "URSI Radio Science Letters, 7, 33"
+    },
+    {
+      "year": "2025",
+      "type": "conference",
+      "title": "Entropy-Based Bayesian Model Averaging for Enhancing Classification Resilience Against Adversarial Perturbations Using SAR Images",
+      "authors": "Amir Hosein Oveis, Bhaskar Ahuja, Alessandro Cantelli-Forti, Marco Martorella",
+      "venue": "2025 URSI Asia-Pacific Radio Science Meeting"
+    },
+    {
+      "year": "2024",
+      "type": "conference",
+      "title": "Advancements in Space Object State Estimation During Constant Thrust Maneuver Using Distributed Sensor Networks: A Radar Based Approach",
+      "authors": "Bhaskar Ahuja, Luca Gentile, Marco Martorella",
+      "venue": "2024 International Radar Conference"
+    },
+    {
+      "year": "2024",
+      "type": "conference",
+      "title": "Improving Satellite Position and Velocity Estimation During Low-Thrust Maneuvers Using Multi-Bistatic Radar and Unscented Kalman Filter",
+      "authors": "Bhaskar Ahuja, Luca Gentile, Marco Martorella, others",
+      "venue": "4th IAA Space Situational Awareness Conference"
+    },
+    {
+      "year": "2024",
+      "type": "conference",
+      "title": "A Novel Data Fusion Algorithm to Improve the Detection and Tracking of Killer Drones in Urban Environment",
+      "authors": "Walter Matta, Bhaskar Ahuja, Ajeet Kumar, Alessandro Cantelli-Forti",
+      "venue": "ICT Innovations 2024 International conference NATO Workshop"
+    }
+  ]
+}

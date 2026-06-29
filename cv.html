@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CV | Bhaskar Ahuja</title>
+    <meta name="description" content="Curriculum vitae for Bhaskar Ahuja." />
+    <script>
+      (function () {
+        const saved = localStorage.getItem('bhaskar-theme');
+        const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', saved || system);
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap nav-bar">
+        <a class="brand" href="index.html"><span class="brand-mark">BA</span>Bhaskar Ahuja</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="research.html">Research</a>
+          <a href="publications.html">Publications</a>
+          <a href="gallery.html">Gallery</a>
+          <a class="active" href="cv.html">CV</a>
+          <a href="contact.html">Contact</a>
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme"></button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap page-shell">
+      <section class="panel" data-reveal>
+        <p class="eyebrow">Curriculum vitae</p>
+        <h1>CV</h1>
+        <p class="lede">The CV is loaded from <code>bhaskar/cv/Ahuja_Bhaskar_CV.pdf</code>.</p>
+        <a class="button-link" href="cv/Ahuja_Bhaskar_CV.pdf">Download PDF</a>
+      </section>
+      <section class="section" data-reveal>
+        <object class="cv-frame" data="cv/Ahuja_Bhaskar_CV.pdf" type="application/pdf">
+          <p>Your browser cannot display the PDF inline. <a href="cv/Ahuja_Bhaskar_CV.pdf">Download the CV</a>.</p>
+        </object>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-row">
+        <span>Copyright <span id="year"></span> Bhaskar Ahuja</span>
+        <a href="contact.html">Contact</a>
+      </div>
+    </footer>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

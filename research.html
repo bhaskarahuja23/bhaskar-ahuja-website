@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Research | Bhaskar Ahuja</title>
+    <meta name="description" content="Research areas for Bhaskar Ahuja: space situational awareness, radar architectures, radio telescope receivers, and satellite tracking." />
+    <script>
+      (function () {
+        const saved = localStorage.getItem('bhaskar-theme');
+        const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', saved || system);
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap nav-bar">
+        <a class="brand" href="index.html"><span class="brand-mark">BA</span>Bhaskar Ahuja</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a class="active" href="research.html">Research</a>
+          <a href="publications.html">Publications</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="cv.html">CV</a>
+          <a href="contact.html">Contact</a>
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme"></button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap page-shell">
+      <section class="panel" data-reveal>
+        <p class="eyebrow">Research</p>
+        <h1>Space sensing with radar systems</h1>
+        <p class="lede">The site is structured so you can expand each research theme with project summaries, collaborators, datasets, and publication links.</p>
+      </section>
+
+      <section class="section grid-2" data-reveal>
+        <article class="card">
+          <p class="eyebrow">Area 01</p>
+          <h2>Space Situational Awareness</h2>
+          <p>Radar-based tracking and characterization of resident space objects, debris, and satellites under challenging observation geometries.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Area 02</p>
+          <h2>Multistatic Radar Architectures</h2>
+          <p>Distributed sensing and bistatic receiver concepts, including radio telescopes as high-sensitivity receiving assets for GEO tracking.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Area 03</p>
+          <h2>State Estimation</h2>
+          <p>Position and velocity estimation during low-thrust maneuvers using radar data, filtering methods, and sensor network geometry.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Area 04</p>
+          <h2>Machine Learning for Tracking</h2>
+          <p>Physics-aware neural networks and resilient classification methods for radar, SAR, and satellite tracking workflows.</p>
+        </article>
+      </section>
+
+      <section class="section panel" data-reveal>
+        <div class="section-heading-row">
+          <div>
+            <p class="eyebrow">Projects</p>
+            <h2>Project placeholders</h2>
+          </div>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item">
+            <span class="timeline-date">Project 01</span>
+            <div>
+              <h3>Radio telescope receiver networks</h3>
+              <p>Add objective, methods, collaborators, publications, and representative figures.</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <span class="timeline-date">Project 02</span>
+            <div>
+              <h3>Low-thrust maneuver estimation</h3>
+              <p>Add orbit estimation approach, filters, simulation setup, and radar measurement assumptions.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-row">
+        <span>Copyright <span id="year"></span> Bhaskar Ahuja</span>
+        <a href="publications.html">Publications</a>
+      </div>
+    </footer>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

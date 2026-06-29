@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact | Bhaskar Ahuja</title>
+    <meta name="description" content="Contact and profile links for Bhaskar Ahuja." />
+    <script>
+      (function () {
+        const saved = localStorage.getItem('bhaskar-theme');
+        const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', saved || system);
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap nav-bar">
+        <a class="brand" href="index.html"><span class="brand-mark">BA</span>Bhaskar Ahuja</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="research.html">Research</a>
+          <a href="publications.html">Publications</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="cv.html">CV</a>
+          <a class="active" href="contact.html">Contact</a>
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme"></button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap page-shell">
+      <section class="panel" data-reveal>
+        <p class="eyebrow">Contact</p>
+        <h1>Get in touch</h1>
+        <p class="lede">Add your preferred email address and office details here when ready.</p>
+      </section>
+
+      <section class="section grid-2" data-reveal>
+        <article class="panel">
+          <h2>Academic profiles</h2>
+          <p><strong>Google Scholar:</strong> <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en&user=ktDW0hoAAAAJ" target="_blank" rel="noreferrer">Bhaskar Ahuja</a></p>
+          <p><strong>ResearchGate:</strong> <a href="https://www.researchgate.net/profile/Bhaskar-Ahuja?ev=hdr_xprf" target="_blank" rel="noreferrer">Bhaskar Ahuja</a></p>
+          <p><strong>Lab profile:</strong> <a href="https://labrass.cnit.it/staff/bhaskar-ahuja/" target="_blank" rel="noreferrer">CNIT RaSS profile</a></p>
+        </article>
+        <article class="panel">
+          <h2>Professional links</h2>
+          <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/bhaskar-ahuja-73334921b/?skipRedirect=true" target="_blank" rel="noreferrer">bhaskar-ahuja</a></p>
+          <p><strong>GitHub:</strong> <a href="https://github.com/bhaskarahuja23" target="_blank" rel="noreferrer">bhaskarahuja23</a></p>
+          <p><strong>Website repository:</strong> <a href="https://github.com/bhaskarahuja23/bhaskar-ahuja-website" target="_blank" rel="noreferrer">bhaskar-ahuja-website</a></p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-row">
+        <span>Copyright <span id="year"></span> Bhaskar Ahuja</span>
+        <a href="index.html">Home</a>
+      </div>
+    </footer>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

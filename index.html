@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bhaskar Ahuja | Academic Website</title>
+    <meta name="description" content="Personal academic website of Bhaskar Ahuja, focused on radar sensing, space situational awareness, radio telescopes, and satellite tracking." />
+    <meta property="og:title" content="Bhaskar Ahuja" />
+    <meta property="og:description" content="Radar sensing and space situational awareness research." />
+    <meta property="og:type" content="website" />
+    <script>
+      (function () {
+        const saved = localStorage.getItem('bhaskar-theme');
+        const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', saved || system);
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Bhaskar Ahuja",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "CNIT RaSS National Laboratory"
+        },
+        "url": "https://github.com/bhaskarahuja23/bhaskar-ahuja-website",
+        "sameAs": [
+          "https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en&user=ktDW0hoAAAAJ",
+          "https://www.linkedin.com/in/bhaskar-ahuja-73334921b/?skipRedirect=true",
+          "https://labrass.cnit.it/staff/bhaskar-ahuja/",
+          "https://www.researchgate.net/profile/Bhaskar-Ahuja?ev=hdr_xprf",
+          "https://github.com/bhaskarahuja23"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap nav-bar">
+        <a class="brand" href="index.html"><span class="brand-mark">BA</span>Bhaskar Ahuja</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a class="active" href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="research.html">Research</a>
+          <a href="publications.html">Publications</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="cv.html">CV</a>
+          <a href="contact.html">Contact</a>
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme"></button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap page-shell">
+      <section class="hero" data-reveal>
+        <div class="hero-copy">
+          <p class="eyebrow">CNIT RaSS National Laboratory</p>
+          <h1>Bhaskar Ahuja</h1>
+          <p class="lede">Researcher working on radar sensing, space situational awareness, satellite tracking, and radio telescope based monitoring architectures.</p>
+          <p>This website is a separate static site inside the repository. Replace the placeholder biography, email, portrait, and project details as your profile evolves.</p>
+          <div class="actions">
+            <a class="button-link" href="publications.html">View Publications</a>
+            <a class="button-link secondary" href="cv/Ahuja_Bhaskar_CV.pdf">Download CV</a>
+            <a class="button-link secondary" href="gallery.html">Open Gallery</a>
+          </div>
+          <div class="social-list" aria-label="Academic and professional profiles">
+            <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en&user=ktDW0hoAAAAJ" target="_blank" rel="noreferrer">Scholar</a>
+            <a href="https://www.linkedin.com/in/bhaskar-ahuja-73334921b/?skipRedirect=true" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://labrass.cnit.it/staff/bhaskar-ahuja/" target="_blank" rel="noreferrer">Lab</a>
+            <a href="https://www.researchgate.net/profile/Bhaskar-Ahuja?ev=hdr_xprf" target="_blank" rel="noreferrer">RG</a>
+            <a href="https://github.com/bhaskarahuja23" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+        <figure class="hero-card hero-portrait">
+          <img src="gallery/photo_2026-06-29_17-21-24.jpg" alt="Bhaskar Ahuja presenting research" />
+          <figcaption>Temporary hero image from the local gallery. Replace it with a headshot when ready.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section panel" data-reveal>
+        <div class="section-heading-row">
+          <div>
+            <p class="eyebrow">Research focus</p>
+            <h2>Radar, satellites, and resilient sensing</h2>
+          </div>
+          <a href="research.html">Research page</a>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Space Situational Awareness</h3>
+            <p>State estimation and tracking of space objects using radar measurements and distributed sensing concepts.</p>
+          </article>
+          <article class="card">
+            <h3>Radio Telescopes as Receivers</h3>
+            <p>Bistatic and multistatic radar architectures that use large radio telescope receivers for space debris monitoring.</p>
+          </article>
+          <article class="card">
+            <h3>Physics-Aware Learning</h3>
+            <p>Hybrid modeling workflows that combine measurement physics, estimation filters, and neural networks for satellite tracking.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section panel" data-reveal>
+        <div class="section-heading-row">
+          <div>
+            <p class="eyebrow">Selected publications</p>
+            <h2>Recent work</h2>
+          </div>
+          <a href="publications.html">All publications</a>
+        </div>
+        <div class="publication-list">
+          <article class="card">
+            <p class="pill">2026 Conference</p>
+            <h3>Performance Evaluation of Radar Architectures with Radio Telescopes as Bistatic Receivers for GEO Tracking</h3>
+            <p>Bhaskar Ahuja, Luca Gentile, Marco Martorella</p>
+          </article>
+          <article class="card">
+            <p class="pill">2025 Journal</p>
+            <h3>Role of radio telescopes in space debris monitoring: Current insights and future directions</h3>
+            <p>Bhaskar Ahuja, Luca Gentile, Ajeet Kumar, Marco Martorella</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-row">
+        <span>Copyright <span id="year"></span> Bhaskar Ahuja</span>
+        <a href="contact.html">Contact</a>
+      </div>
+    </footer>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

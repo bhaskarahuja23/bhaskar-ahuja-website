@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About | Bhaskar Ahuja</title>
+    <meta name="description" content="About Bhaskar Ahuja and his academic research profile." />
+    <script>
+      (function () {
+        const saved = localStorage.getItem('bhaskar-theme');
+        const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', saved || system);
+      })();
+    </script>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap nav-bar">
+        <a class="brand" href="index.html"><span class="brand-mark">BA</span>Bhaskar Ahuja</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a class="active" href="about.html">About</a>
+          <a href="research.html">Research</a>
+          <a href="publications.html">Publications</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="cv.html">CV</a>
+          <a href="contact.html">Contact</a>
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme"></button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap page-shell">
+      <section class="panel profile-row" data-reveal>
+        <img src="gallery/photo_2026-06-29_17-21-24.jpg" alt="Bhaskar Ahuja" />
+        <div>
+          <p class="eyebrow">About</p>
+          <h1>Bhaskar Ahuja</h1>
+          <p class="lede">Academic researcher focused on radar sensing, space situational awareness, and satellite tracking.</p>
+          <p>Add your full biography here, including current position, education, research group, supervisors, teaching, awards, and collaboration interests.</p>
+        </div>
+      </section>
+
+      <section class="section grid-2" data-reveal>
+        <article class="panel">
+          <p class="eyebrow">Current affiliation</p>
+          <h2>CNIT RaSS National Laboratory</h2>
+          <p>Use this section for your role, laboratory description, address, project involvement, and institutional profile details.</p>
+          <p><a href="https://labrass.cnit.it/staff/bhaskar-ahuja/" target="_blank" rel="noreferrer">Open lab profile</a></p>
+        </article>
+        <article class="panel">
+          <p class="eyebrow">Research identity</p>
+          <h2>Keywords</h2>
+          <div class="tag-row">
+            <span class="pill">Radar</span>
+            <span class="pill">SSA</span>
+            <span class="pill">Satellite tracking</span>
+            <span class="pill">Radio telescopes</span>
+            <span class="pill">Bayesian estimation</span>
+            <span class="pill">Physics-aware learning</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="section panel" data-reveal>
+        <div class="section-heading-row">
+          <div>
+            <p class="eyebrow">Timeline</p>
+            <h2>Academic milestones</h2>
+          </div>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item">
+            <span class="timeline-date">Present</span>
+            <div>
+              <h3>Research at CNIT RaSS</h3>
+              <p>Add current research appointment, group, and project responsibilities.</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <span class="timeline-date">2024-2026</span>
+            <div>
+              <h3>Space object tracking research</h3>
+              <p>Work on radar architectures, low-thrust maneuver estimation, radio telescopes, and satellite tracking.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-row">
+        <span>Copyright <span id="year"></span> Bhaskar Ahuja</span>
+        <a href="contact.html">Contact</a>
+      </div>
+    </footer>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
