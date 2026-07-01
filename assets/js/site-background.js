@@ -3,249 +3,286 @@
   if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const ctx = canvas.getContext('2d');
+  const TAU = Math.PI * 2;
   let width = 0;
   let height = 0;
-  let frame = null;
+  let ratio = 1;
   let tick = 0;
-  let network = [];
-  let targets = [];
-  let returns = [];
+  let frame = null;
+  let orbiters = [];
+  let stars = [];
+  let sensorPulses = [];
 
   function isDark() {
     return document.documentElement.getAttribute('data-theme') === 'dark';
   }
 
-  function wrapAngle(angle) {
-    const full = Math.PI * 2;
-    return ((angle % full) + full) % full;
+  function palette(dark) {
+    return dark
+      ? {
+          space: 'rgba(9, 16, 22, 0.38)',
+          earthA: 'rgba(39, 118, 142, 0.34)',
+          earthB: 'rgba(21, 76, 92, 0.24)',
+          limb: 'rgba(107, 211, 224, 0.42)',
+          orbit: 'rgba(143, 209, 226, 0.18)',
+          orbitStrong: 'rgba(143, 209, 226, 0.34)',
+          debris: 'rgba(204, 221, 229, 0.46)',
+          satellite: 'rgba(255, 198, 104, 0.72)',
+          track: 'rgba(98, 198, 184, 0.45)',
+          star: 'rgba(210, 226, 234, 0.18)'
+        }
+      : {
+          space: 'rgba(218, 229, 232, 0.34)',
+          earthA: 'rgba(112, 171, 184, 0.26)',
+          earthB: 'rgba(70, 126, 142, 0.16)',
+          limb: 'rgba(47, 125, 114, 0.27)',
+          orbit: 'rgba(40, 72, 95, 0.12)',
+          orbitStrong: 'rgba(40, 72, 95, 0.22)',
+          debris: 'rgba(47, 77, 94, 0.34)',
+          satellite: 'rgba(181, 94, 38, 0.54)',
+          track: 'rgba(47, 125, 114, 0.32)',
+          star: 'rgba(65, 86, 101, 0.12)'
+        };
   }
 
-  function angleDifference(a, b) {
-    return Math.atan2(Math.sin(a - b), Math.cos(a - b));
+  function earthGeometry() {
+    const mobile = width < 720;
+    const radius = Math.max(width, height) * (mobile ? 0.54 : 0.48);
+    return {
+      x: width * (mobile ? 0.72 : 0.83),
+      y: height * (mobile ? 1.04 : 1.02),
+      radius
+    };
   }
 
-  function makeTargets() {
-    const cx = width * 0.5;
-    const cy = height * 0.5;
-    const radius = Math.min(width, height) * 0.42;
-    const specs = [
-      [0.17, 0.42, 0.92],
-      [0.36, 0.62, 0.72],
-      [0.58, 0.48, 0.82],
-      [0.73, 0.70, 0.58],
-      [0.84, 0.34, 0.66],
-      [0.08, 0.72, 0.5]
-    ];
+  function makeStars() {
+    const count = Math.max(42, Math.min(96, Math.floor((width * height) / 17000)));
+    stars = Array.from({ length: count }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      r: 0.45 + Math.random() * 1.15,
+      phase: Math.random() * TAU,
+      drift: 0.006 + Math.random() * 0.012
+    }));
+  }
 
-    targets = specs.map(([turn, distance, strength], index) => {
-      const angle = turn * Math.PI * 2;
-      const range = radius * distance;
-      return {
-        id: index,
-        angle,
-        range,
-        x: cx + Math.cos(angle) * range,
-        y: cy + Math.sin(angle) * range,
-        strength,
-        lastHit: -1000
-      };
+  function makeOrbiters() {
+    const mobile = width < 720;
+    const bands = mobile
+      ? [
+          [0.62, 0.20, -0.45],
+          [0.78, -0.13, -0.18],
+          [0.96, 0.16, 0.12],
+          [1.15, -0.10, 0.35]
+        ]
+      : [
+          [0.58, 0.20, -0.52],
+          [0.74, -0.15, -0.25],
+          [0.90, 0.10, 0.02],
+          [1.08, -0.18, 0.26],
+          [1.28, 0.14, 0.46]
+        ];
+
+    orbiters = bands.flatMap(([scale, tilt, phase], bandIndex) => {
+      const debrisCount = bandIndex === 0 ? 5 : 7;
+      return Array.from({ length: debrisCount }, (_, i) => {
+        const satellite = i === Math.floor(debrisCount / 2) && bandIndex % 2 === 0;
+        return {
+          bandIndex,
+          scale,
+          tilt,
+          phase: phase + (i / debrisCount) * TAU + Math.random() * 0.25,
+          speed: (satellite ? 0.0048 : 0.0028 + Math.random() * 0.0022) * (bandIndex % 2 ? -1 : 1),
+          size: satellite ? 3.2 : 1.2 + Math.random() * 1.5,
+          satellite,
+          pulseOffset: Math.random() * 120
+        };
+      });
     });
   }
 
   function resize() {
-    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    ratio = Math.min(window.devicePixelRatio || 1, 2);
     width = window.innerWidth;
     height = window.innerHeight;
     canvas.width = Math.floor(width * ratio);
     canvas.height = Math.floor(height * ratio);
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-
-    const count = Math.max(22, Math.min(48, Math.floor((width * height) / 34000)));
-    network = Array.from({ length: count }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.08,
-      vy: (Math.random() - 0.5) * 0.08,
-      r: 0.8 + Math.random() * 1
-    }));
-    returns = [];
-    makeTargets();
+    sensorPulses = [];
+    makeStars();
+    makeOrbiters();
   }
 
-  function drawRadar(cx, cy, radius, dark) {
-    const green = dark ? '72, 221, 143' : '31, 112, 86';
-    const blue = dark ? '86, 172, 218' : '55, 88, 108';
-    const sweep = wrapAngle(tick * 0.014 - Math.PI / 2);
+  function drawBackground(colors) {
+    const wash = ctx.createLinearGradient(0, 0, width, height);
+    wash.addColorStop(0, colors.space);
+    wash.addColorStop(0.55, 'rgba(0,0,0,0)');
+    wash.addColorStop(1, colors.space);
+    ctx.fillStyle = wash;
+    ctx.fillRect(0, 0, width, height);
 
-    ctx.save();
-    ctx.translate(cx, cy);
-
-    const fade = ctx.createRadialGradient(0, 0, 0, 0, 0, radius);
-    fade.addColorStop(0, `rgba(${green}, ${dark ? 0.035 : 0.026})`);
-    fade.addColorStop(0.7, `rgba(${green}, ${dark ? 0.018 : 0.012})`);
-    fade.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = fade;
-    ctx.beginPath();
-    ctx.arc(0, 0, radius, 0, Math.PI * 2);
-    ctx.fill();
-
-    for (let i = 1; i <= 5; i += 1) {
-      ctx.strokeStyle = `rgba(${green}, ${dark ? 0.15 : 0.09})`;
-      ctx.lineWidth = i === 5 ? 1.3 : 1;
+    stars.forEach((star) => {
+      const alpha = 0.45 + Math.sin(tick * star.drift + star.phase) * 0.35;
+      ctx.fillStyle = colors.star.replace(/[\d.]+\)$/u, `${Math.max(0.04, alpha * 0.2)})`);
       ctx.beginPath();
-      ctx.arc(0, 0, (radius / 5) * i, 0, Math.PI * 2);
-      ctx.stroke();
-    }
-
-    for (let i = 0; i < 12; i += 1) {
-      const angle = (Math.PI * 2 * i) / 12;
-      ctx.strokeStyle = `rgba(${blue}, ${dark ? 0.11 : 0.065})`;
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
-      ctx.stroke();
-    }
-
-    const beamWidth = 0.22;
-    const beam = ctx.createConicGradient(sweep - beamWidth, 0, 0);
-    beam.addColorStop(0, 'rgba(0,0,0,0)');
-    beam.addColorStop(0.018, `rgba(${green}, ${dark ? 0.04 : 0.03})`);
-    beam.addColorStop(0.045, `rgba(${green}, ${dark ? 0.28 : 0.16})`);
-    beam.addColorStop(0.09, 'rgba(0,0,0,0)');
-    beam.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = beam;
-    ctx.beginPath();
-    ctx.arc(0, 0, radius, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.strokeStyle = `rgba(${green}, ${dark ? 0.52 : 0.35})`;
-    ctx.lineWidth = 1.2;
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(Math.cos(sweep) * radius, Math.sin(sweep) * radius);
-    ctx.stroke();
-
-    targets.forEach((target) => {
-      const diff = Math.abs(angleDifference(sweep, target.angle));
-      if (diff < 0.018 && tick - target.lastHit > 18) {
-        target.lastHit = tick;
-        returns.push({
-          x: target.x,
-          y: target.y,
-          angle: target.angle,
-          range: target.range,
-          strength: target.strength,
-          born: tick
-        });
-      }
-    });
-
-    ctx.fillStyle = `rgba(${green}, ${dark ? 0.72 : 0.52})`;
-    ctx.beginPath();
-    ctx.arc(0, 0, 3.2, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  }
-
-  function drawTargets(dark) {
-    const green = dark ? '72, 221, 143' : '31, 112, 86';
-    const warm = dark ? '255, 197, 94' : '181, 94, 38';
-
-    targets.forEach((target) => {
-      const age = tick - target.lastHit;
-      const hit = Math.max(0, 1 - age / 46);
-      const baseAlpha = dark ? 0.2 : 0.14;
-      const radius = 2.2 + target.strength * 2.8 + hit * 7;
-
-      ctx.strokeStyle = `rgba(${warm}, ${hit * 0.55})`;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.arc(target.x, target.y, radius + 8 * hit, 0, Math.PI * 2);
-      ctx.stroke();
-
-      ctx.fillStyle = `rgba(${hit > 0 ? warm : green}, ${baseAlpha + hit * 0.72})`;
-      ctx.beginPath();
-      ctx.arc(target.x, target.y, radius, 0, Math.PI * 2);
+      ctx.arc(star.x, star.y, star.r, 0, TAU);
       ctx.fill();
     });
   }
 
-  function drawReturns(cx, cy, dark) {
-    const warm = dark ? '255, 197, 94' : '181, 94, 38';
-    const green = dark ? '72, 221, 143' : '31, 112, 86';
-    returns = returns.filter((signal) => tick - signal.born < 80);
+  function drawEarth(earth, colors) {
+    const glow = ctx.createRadialGradient(
+      earth.x - earth.radius * 0.28,
+      earth.y - earth.radius * 0.42,
+      earth.radius * 0.08,
+      earth.x,
+      earth.y,
+      earth.radius
+    );
+    glow.addColorStop(0, colors.earthA);
+    glow.addColorStop(0.62, colors.earthB);
+    glow.addColorStop(1, 'rgba(0,0,0,0)');
 
-    returns.forEach((signal) => {
-      const age = tick - signal.born;
-      const life = 1 - age / 80;
-      const travel = Math.sin(Math.min(age / 24, 1) * Math.PI);
-      const echoRange = signal.range * (1 - 0.28 * travel);
-      const x = cx + Math.cos(signal.angle) * echoRange;
-      const y = cy + Math.sin(signal.angle) * echoRange;
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(earth.x, earth.y, earth.radius, 0, TAU);
+    ctx.fill();
 
-      ctx.strokeStyle = `rgba(${warm}, ${life * 0.5 * signal.strength})`;
-      ctx.lineWidth = 1.2;
+    ctx.strokeStyle = colors.limb;
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.arc(earth.x, earth.y, earth.radius * 0.96, Math.PI * 1.06, Math.PI * 1.78);
+    ctx.stroke();
+
+    ctx.strokeStyle = colors.limb.replace(/[\d.]+\)$/u, '0.12)');
+    ctx.lineWidth = 1;
+    for (let i = 0; i < 5; i += 1) {
+      const y = earth.y - earth.radius * (0.58 - i * 0.18);
       ctx.beginPath();
-      ctx.arc(cx, cy, signal.range + age * 0.55, signal.angle - 0.045, signal.angle + 0.045);
+      ctx.ellipse(earth.x, y, earth.radius * (0.52 + i * 0.08), earth.radius * 0.08, -0.18, Math.PI, TAU);
       ctx.stroke();
+    }
+  }
 
-      ctx.strokeStyle = `rgba(${green}, ${life * 0.34 * signal.strength})`;
+  function orbitPoint(earth, orbiter) {
+    const base = earth.radius * orbiter.scale;
+    const angle = orbiter.phase + tick * orbiter.speed;
+    const rx = base;
+    const ry = base * (0.28 + Math.abs(orbiter.tilt) * 0.42);
+    const cos = Math.cos(orbiter.tilt);
+    const sin = Math.sin(orbiter.tilt);
+    const px = Math.cos(angle) * rx;
+    const py = Math.sin(angle) * ry - earth.radius * 0.36;
+    return {
+      x: earth.x + px * cos - py * sin,
+      y: earth.y + px * sin + py * cos,
+      angle,
+      front: Math.sin(angle) < 0.52
+    };
+  }
+
+  function drawOrbits(earth, colors) {
+    const drawn = new Set();
+    orbiters.forEach((orbiter) => {
+      if (drawn.has(orbiter.bandIndex)) return;
+      drawn.add(orbiter.bandIndex);
+
+      const base = earth.radius * orbiter.scale;
+      const ry = base * (0.28 + Math.abs(orbiter.tilt) * 0.42);
+      ctx.save();
+      ctx.translate(earth.x, earth.y - earth.radius * 0.36);
+      ctx.rotate(orbiter.tilt);
+      ctx.strokeStyle = orbiter.bandIndex % 2 ? colors.orbit : colors.orbitStrong;
+      ctx.lineWidth = orbiter.bandIndex % 2 ? 0.9 : 1.15;
+      ctx.setLineDash(orbiter.bandIndex % 2 ? [7, 10] : [1, 0]);
       ctx.beginPath();
-      ctx.moveTo(signal.x, signal.y);
-      ctx.lineTo(x, y);
+      ctx.ellipse(0, 0, base, ry, 0, 0, TAU);
       ctx.stroke();
+      ctx.restore();
+    });
+    ctx.setLineDash([]);
+  }
+
+  function drawSatellite(x, y, size, colors) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(Math.sin(tick * 0.018) * 0.35);
+    ctx.strokeStyle = colors.satellite;
+    ctx.fillStyle = colors.satellite;
+    ctx.lineWidth = 1;
+    ctx.fillRect(-size * 0.55, -size * 0.38, size * 1.1, size * 0.76);
+    ctx.strokeRect(-size * 2.1, -size * 0.42, size * 1.1, size * 0.84);
+    ctx.strokeRect(size, -size * 0.42, size * 1.1, size * 0.84);
+    ctx.beginPath();
+    ctx.moveTo(0, size * 0.45);
+    ctx.lineTo(0, size * 1.35);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawOrbiters(earth, colors) {
+    const sensor = {
+      x: earth.x - earth.radius * 0.34,
+      y: earth.y - earth.radius * 0.93
+    };
+
+    orbiters.forEach((orbiter) => {
+      const point = orbitPoint(earth, orbiter);
+      const visible = point.x > -40 && point.x < width + 40 && point.y > -40 && point.y < height + 40;
+      if (!visible) return;
+
+      const alpha = point.front ? 1 : 0.42;
+      if (orbiter.satellite) {
+        drawSatellite(point.x, point.y, orbiter.size, {
+          ...colors,
+          satellite: colors.satellite.replace(/[\d.]+\)$/u, `${alpha * 0.78})`)
+        });
+      } else {
+        ctx.fillStyle = colors.debris.replace(/[\d.]+\)$/u, `${alpha * 0.55})`);
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, orbiter.size, 0, TAU);
+        ctx.fill();
+      }
+
+      if (orbiter.satellite && (tick + orbiter.pulseOffset) % 190 < 1) {
+        sensorPulses.push({ x: point.x, y: point.y, born: tick, sensor });
+      }
     });
   }
 
-  function drawNetwork(dark) {
-    const dot = dark ? '180, 202, 214' : '79, 100, 115';
-    const line = dark ? '143, 168, 182' : '79, 100, 115';
+  function drawTracking(colors) {
+    sensorPulses = sensorPulses.filter((pulse) => tick - pulse.born < 105);
+    sensorPulses.forEach((pulse) => {
+      const age = tick - pulse.born;
+      const life = 1 - age / 105;
+      const travel = Math.min(age / 36, 1);
+      const x = pulse.sensor.x + (pulse.x - pulse.sensor.x) * travel;
+      const y = pulse.sensor.y + (pulse.y - pulse.sensor.y) * travel;
 
-    network.forEach((point) => {
-      point.x += point.vx;
-      point.y += point.vy;
-      if (point.x < -10) point.x = width + 10;
-      if (point.x > width + 10) point.x = -10;
-      if (point.y < -10) point.y = height + 10;
-      if (point.y > height + 10) point.y = -10;
-    });
-
-    for (let i = 0; i < network.length; i += 1) {
-      for (let j = i + 1; j < network.length; j += 1) {
-        const a = network[i];
-        const b = network[j];
-        const dx = a.x - b.x;
-        const dy = a.y - b.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < 112) {
-          ctx.strokeStyle = `rgba(${line}, ${(1 - distance / 112) * (dark ? 0.1 : 0.055)})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-        }
-      }
-    }
-
-    network.forEach((point) => {
-      ctx.fillStyle = `rgba(${dot}, ${dark ? 0.15 : 0.08})`;
+      ctx.strokeStyle = colors.track.replace(/[\d.]+\)$/u, `${life * 0.38})`);
+      ctx.lineWidth = 1.1;
       ctx.beginPath();
-      ctx.arc(point.x, point.y, point.r, 0, Math.PI * 2);
+      ctx.moveTo(pulse.sensor.x, pulse.sensor.y);
+      ctx.quadraticCurveTo((pulse.sensor.x + pulse.x) / 2, pulse.y - 80, x, y);
+      ctx.stroke();
+
+      ctx.fillStyle = colors.track.replace(/[\d.]+\)$/u, `${life * 0.6})`);
+      ctx.beginPath();
+      ctx.arc(x, y, 2.2, 0, TAU);
       ctx.fill();
     });
   }
 
   function draw() {
-    ctx.clearRect(0, 0, width, height);
     const dark = isDark();
-    const cx = width * 0.5;
-    const cy = height * 0.5;
-    const radius = Math.min(width, height) * 0.42;
-    drawRadar(cx, cy, radius, dark);
-    drawReturns(cx, cy, dark);
-    drawTargets(dark);
-    drawNetwork(dark);
+    const colors = palette(dark);
+    const earth = earthGeometry();
+    ctx.clearRect(0, 0, width, height);
+    drawBackground(colors);
+    drawOrbits(earth, colors);
+    drawTracking(colors);
+    drawOrbiters(earth, colors);
+    drawEarth(earth, colors);
     tick += 1;
     frame = requestAnimationFrame(draw);
   }
