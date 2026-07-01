@@ -3,24 +3,23 @@
   const toggle = document.getElementById('theme-toggle');
   const stored = localStorage.getItem('bhaskar-theme');
   const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  const current = stored || system;
+  root.setAttribute('data-theme', current);
 
-  root.setAttribute('data-theme', stored || system);
-
-  function syncToggle() {
+  function syncToggleLabel() {
     if (!toggle) return;
-    const dark = root.getAttribute('data-theme') === 'dark';
-    toggle.textContent = dark ? 'L' : 'D';
-    toggle.title = dark ? 'Switch to light theme' : 'Switch to dark theme';
-    toggle.setAttribute('aria-label', toggle.title);
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    toggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+    toggle.setAttribute('title', isDark ? 'Switch to light theme' : 'Switch to dark theme');
   }
 
   if (toggle) {
-    syncToggle();
+    syncToggleLabel();
     toggle.addEventListener('click', () => {
       const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
       localStorage.setItem('bhaskar-theme', next);
-      syncToggle();
+      syncToggleLabel();
     });
   }
 })();
