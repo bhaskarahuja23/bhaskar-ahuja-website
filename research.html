@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Research | Bhaskar Ahuja</title>
-    <meta name="description" content="Research areas for Bhaskar Ahuja: space situational awareness, radar architectures, radio telescope receivers, and satellite tracking." />
+    <title>Research and Publications | Bhaskar Ahuja</title>
+    <meta name="description" content="Research areas, conference activity, and publications by Bhaskar Ahuja." />
     <script>
       (function () {
         const saved = localStorage.getItem('bhaskar-theme');
@@ -22,8 +22,7 @@
         <nav class="site-nav" aria-label="Primary">
           <a href="index.html">Home</a>
           <a href="about.html">About</a>
-          <a class="active" href="research.html">Research</a>
-          <a href="publications.html">Publications</a>
+          <a class="active" href="research.html">Research & Publications</a>
           <a href="gallery.html">Gallery</a>
           <a href="cv.html">CV</a>
           <a href="contact.html">Contact</a>
@@ -33,56 +32,215 @@
     </header>
 
     <main class="wrap page-shell">
-      <section class="panel" data-reveal>
-        <p class="eyebrow">Research</p>
-        <h1>Space sensing with radar systems</h1>
-        <p class="lede">The site is structured so you can expand each research theme with project summaries, collaborators, datasets, and publication links.</p>
+      <section class="page-intro" data-reveal>
+        <p class="eyebrow">Research and publications</p>
+        <h1>Space Domain Awareness with radar systems</h1>
+        <p class="hero-lede">Research across passive radar, bistatic tracking, radio telescope receivers, orbit determination, multi-sensor fusion, and machine learning for space surveillance.</p>
       </section>
 
-      <section class="section grid-2" data-reveal>
-        <article class="card">
+      <section class="research-focus-grid" aria-label="Research areas" data-reveal>
+        <article class="research-card selectable-card">
           <p class="eyebrow">Area 01</p>
-          <h2>Space Situational Awareness</h2>
-          <p>Radar-based tracking and characterization of resident space objects, debris, and satellites under challenging observation geometries.</p>
+          <h2>Space Domain Awareness</h2>
+          <p>Tracking and monitoring resident space objects using radar measurements, orbit determination, and trajectory prediction workflows.</p>
         </article>
-        <article class="card">
+        <article class="research-card selectable-card">
           <p class="eyebrow">Area 02</p>
-          <h2>Multistatic Radar Architectures</h2>
-          <p>Distributed sensing and bistatic receiver concepts, including radio telescopes as high-sensitivity receiving assets for GEO tracking.</p>
+          <h2>Passive and bistatic radar</h2>
+          <p>Radio telescope based receiver concepts, passive radar architectures, and bistatic sensing for space debris monitoring.</p>
         </article>
-        <article class="card">
+        <article class="research-card selectable-card">
           <p class="eyebrow">Area 03</p>
-          <h2>State Estimation</h2>
-          <p>Position and velocity estimation during low-thrust maneuvers using radar data, filtering methods, and sensor network geometry.</p>
+          <h2>State estimation and fusion</h2>
+          <p>Multi-sensor data fusion and advanced filtering techniques including EKF and UKF for satellite tracking during maneuvers.</p>
         </article>
-        <article class="card">
+        <article class="research-card selectable-card">
           <p class="eyebrow">Area 04</p>
-          <h2>Machine Learning for Tracking</h2>
-          <p>Physics-aware neural networks and resilient classification methods for radar, SAR, and satellite tracking workflows.</p>
+          <h2>Beamforming and signal processing</h2>
+          <p>Antenna arrays, digital beamforming, and signal processing methods for array-based sensing and surveillance applications.</p>
         </article>
       </section>
 
       <section class="section panel" data-reveal>
         <div class="section-heading-row">
           <div>
-            <p class="eyebrow">Projects</p>
-            <h2>Project placeholders</h2>
+            <p class="eyebrow">Conference activity</p>
+            <h2>Conferences, schools, and certificates</h2>
           </div>
         </div>
         <div class="timeline">
           <article class="timeline-item">
-            <span class="timeline-date">Project 01</span>
+            <span class="timeline-year">2025</span>
             <div>
-              <h3>Radio telescope receiver networks</h3>
-              <p>Add objective, methods, collaborators, publications, and representative figures.</p>
+              <h3>URSI Asia-Pacific Radio Science Meeting (AP-RASC)</h3>
+              <p>Conference publication on entropy-based Bayesian model averaging for classification resilience against adversarial perturbations using SAR images.</p>
             </div>
           </article>
           <article class="timeline-item">
-            <span class="timeline-date">Project 02</span>
+            <span class="timeline-year">2024</span>
             <div>
-              <h3>Low-thrust maneuver estimation</h3>
-              <p>Add orbit estimation approach, filters, simulation setup, and radar measurement assumptions.</p>
+              <h3>4th IAA International Conference on Space Situational Awareness</h3>
+              <p>Presented work on improving satellite position and velocity estimation during low-thrust maneuvers using multi-bistatic radar and the Unscented Kalman Filter; received 3rd Best Student Paper Award.</p>
             </div>
+          </article>
+          <article class="timeline-item">
+            <span class="timeline-year">2024</span>
+            <div>
+              <h3>International Radar Conference</h3>
+              <p>Presented research on space object state estimation during constant thrust maneuver using distributed sensor networks.</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <span class="timeline-year">2024</span>
+            <div>
+              <h3>Dynamics and Physics in the Solar System</h3>
+              <p>Certificate of participation at the Mathematics Department of the University of Pisa.</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <span class="timeline-year">2023</span>
+            <div>
+              <h3>International Summer Schools</h3>
+              <p>Participated in the International Summer School on Compressive Sensing in Electromagnetism at the University of Trento and the 14th International Summer School on Radar/SAR organized by Fraunhofer-FHR, Germany.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section panel" id="publications" data-reveal>
+        <div class="section-heading-row">
+          <div>
+            <p class="eyebrow">Publications</p>
+            <h2>Research output</h2>
+          </div>
+          <a href="publications/file.bib">Download BibTeX</a>
+        </div>
+        <div class="filters">
+          <label>
+            Search
+            <input id="publication-search" type="search" placeholder="Search title, author, or venue" />
+          </label>
+          <label>
+            Year
+            <select id="year-filter">
+              <option value="all">All years</option>
+              <option value="2026">2026</option>
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+            </select>
+          </label>
+          <label>
+            Type
+            <select id="type-filter">
+              <option value="all">All types</option>
+              <option value="journal">Journal</option>
+              <option value="conference">Conference</option>
+            </select>
+          </label>
+        </div>
+        <p id="publication-count">7 publications</p>
+        <div class="publication-list">
+          <article class="publication-card" data-year="2026" data-type="conference">
+            <div class="publication-meta"><span class="pill">Conference</span><span class="pill pill--soft">2026</span></div>
+            <h3>Performance Evaluation of Radar Architectures with Radio Telescopes as Bistatic Receivers for GEO Tracking</h3>
+            <p class="authors"><span class="author-me">Bhaskar Ahuja</span>, Luca Gentile, Marco Martorella</p>
+            <p class="venue">5th IAA Space Situational Awareness Conference, 2026</p>
+            <div class="publication-actions"><button class="toggle-bib" type="button" aria-expanded="false" aria-controls="bib-ahuja2026performance">BibTeX</button></div>
+            <pre id="bib-ahuja2026performance" class="bibtex" hidden>@inproceedings{ahuja2026performance,
+  title={Performance Evaluation of Radar Architectures with Radio Telescopes as Bistatic Receivers for GEO Tracking},
+  author={Ahuja, Bhaskar and Gentile, Luca and Martorella, Marco},
+  booktitle={5th IAA Space Situational Awareness Conference},
+  year={2026}
+}</pre>
+          </article>
+          <article class="publication-card" data-year="2025" data-type="journal">
+            <div class="publication-meta"><span class="pill">Journal</span><span class="pill pill--soft">2025</span></div>
+            <h3>Role of radio telescopes in space debris monitoring: Current insights and future directions</h3>
+            <p class="authors"><span class="author-me">Bhaskar Ahuja</span>, Luca Gentile, Ajeet Kumar, Marco Martorella</p>
+            <p class="venue">Sensors, 25(9), 2900, 2025</p>
+            <div class="publication-actions"><button class="toggle-bib" type="button" aria-expanded="false" aria-controls="bib-ahuja2025role">BibTeX</button></div>
+            <pre id="bib-ahuja2025role" class="bibtex" hidden>@article{ahuja2025role,
+  title={Role of radio telescopes in space debris monitoring: Current insights and future directions},
+  author={Ahuja, Bhaskar and Gentile, Luca and Kumar, Ajeet and Martorella, Marco},
+  journal={Sensors},
+  volume={25},
+  number={9},
+  pages={2900},
+  year={2025},
+  publisher={MDPI}
+}</pre>
+          </article>
+          <article class="publication-card" data-year="2025" data-type="journal">
+            <div class="publication-meta"><span class="pill">Journal</span><span class="pill pill--soft">2025</span></div>
+            <h3>Physics-Aware Neural Networks for Satellite Tracking</h3>
+            <p class="authors"><span class="author-me">Bhaskar Ahuja</span>, Luca Gentile, Marco Martorella</p>
+            <p class="venue">URSI Radio Science Letters, 7, 33, 2025</p>
+            <div class="publication-actions"><button class="toggle-bib" type="button" aria-expanded="false" aria-controls="bib-ahuja2025physics">BibTeX</button></div>
+            <pre id="bib-ahuja2025physics" class="bibtex" hidden>@article{ahuja2025physics,
+  title={Physics-Aware Neural Networks for Satellite Tracking},
+  author={Ahuja, Bhaskar and Gentile, Luca and Martorella, Marco},
+  journal={URSI Radio Science Letters},
+  volume={7},
+  pages={33},
+  year={2025}
+}</pre>
+          </article>
+          <article class="publication-card" data-year="2025" data-type="conference">
+            <div class="publication-meta"><span class="pill">Conference</span><span class="pill pill--soft">2025</span></div>
+            <h3>Entropy-Based Bayesian Model Averaging for Enhancing Classification Resilience Against Adversarial Perturbations Using SAR Images</h3>
+            <p class="authors">Amir Hosein Oveis, <span class="author-me">Bhaskar Ahuja</span>, Alessandro Cantelli-Forti, Marco Martorella</p>
+            <p class="venue">2025 URSI Asia-Pacific Radio Science Meeting (AP-RASC), pp. 1-4, 2025</p>
+            <div class="publication-actions"><button class="toggle-bib" type="button" aria-expanded="false" aria-controls="bib-oveis2025entropy">BibTeX</button></div>
+            <pre id="bib-oveis2025entropy" class="bibtex" hidden>@inproceedings{oveis2025entropy,
+  title={Entropy-Based Bayesian Model Averaging for Enhancing Classification Resilience Against Adversarial Perturbations Using SAR Images},
+  author={Oveis, Amir Hosein and Ahuja, Bhaskar and Cantelli-Forti, Alessandro and Martorella, Marco},
+  booktitle={2025 URSI Asia-Pacific Radio Science Meeting (AP-RASC)},
+  pages={1--4},
+  year={2025},
+  organization={IEEE}
+}</pre>
+          </article>
+          <article class="publication-card" data-year="2024" data-type="conference">
+            <div class="publication-meta"><span class="pill">Conference</span><span class="pill pill--soft">2024</span></div>
+            <h3>Advancements in Space Object State Estimation During Constant Thrust Maneuver Using Distributed Sensor Networks: A Radar Based Approach</h3>
+            <p class="authors"><span class="author-me">Bhaskar Ahuja</span>, Luca Gentile, Marco Martorella</p>
+            <p class="venue">2024 International Radar Conference (RADAR), pp. 1-5, 2024</p>
+            <div class="publication-actions"><button class="toggle-bib" type="button" aria-expanded="false" aria-controls="bib-ahuja2024advancements">BibTeX</button></div>
+            <pre id="bib-ahuja2024advancements" class="bibtex" hidden>@inproceedings{ahuja2024advancements,
+  title={Advancements in Space Object State Estimation During Constant Thrust Maneuver Using Distributed Sensor Networks: A Radar Based Approach},
+  author={Ahuja, Bhaskar and Gentile, Luca and Martorella, Marco},
+  booktitle={2024 International Radar Conference (RADAR)},
+  pages={1--5},
+  year={2024},
+  organization={IEEE}
+}</pre>
+          </article>
+          <article class="publication-card" data-year="2024" data-type="conference">
+            <div class="publication-meta"><span class="pill">Conference</span><span class="pill pill--soft">2024</span></div>
+            <h3>Improving Satellite Position and Velocity Estimation During Low-Thrust Maneuvers Using Multi-Bistatic Radar and Unscented Kalman Filter</h3>
+            <p class="authors"><span class="author-me">Bhaskar Ahuja</span>, Luca Gentile, Marco Martorella</p>
+            <p class="venue">4th IAA Space Situational Awareness Conference, 2024</p>
+            <div class="publication-actions"><button class="toggle-bib" type="button" aria-expanded="false" aria-controls="bib-ahuja2024improving">BibTeX</button></div>
+            <pre id="bib-ahuja2024improving" class="bibtex" hidden>@inproceedings{ahuja2024improving,
+  title={Improving Satellite Position and Velocity Estimation During Low-Thrust Maneuvers Using Multi-Bistatic Radar and Unscented Kalman Filter},
+  author={Ahuja, Bhaskar and Gentile, Luca and Marotrella, Marco and others},
+  booktitle={4th IAA Space Situational Awareness Conference},
+  year={2024},
+  organization={IAA}
+}</pre>
+          </article>
+          <article class="publication-card" data-year="2024" data-type="conference">
+            <div class="publication-meta"><span class="pill">Conference</span><span class="pill pill--soft">2024</span></div>
+            <h3>A Novel Data Fusion Algorithm to Improve the Detection and Tracking of Killer Drones in Urban Environment</h3>
+            <p class="authors">Walter Matta, <span class="author-me">Bhaskar Ahuja</span>, Ajeet Kumar, Alessandro Cantelli-Forti</p>
+            <p class="venue">Proceeding of ICT Innovations 2024 International conference NATO Workshop, 2024</p>
+            <div class="publication-actions"><button class="toggle-bib" type="button" aria-expanded="false" aria-controls="bib-matta2024novel">BibTeX</button></div>
+            <pre id="bib-matta2024novel" class="bibtex" hidden>@inproceedings{matta2024novel,
+  title={A Novel Data Fusion Algorithm to Improve the Detection and Tracking of Killer Drones in Urban Environment},
+  author={Matta, Walter and Ahuja, Bhaskar and Kumar, Ajeet and Cantelli-Forti, Alessandro},
+  booktitle={Proceeding of ICT Innovations 2024 International conference NATO Workshop},
+  year={2024}
+}</pre>
           </article>
         </div>
       </section>
@@ -91,7 +249,7 @@
     <footer class="site-footer">
       <div class="wrap footer-row">
         <span>Copyright <span id="year"></span> Bhaskar Ahuja</span>
-        <a href="publications.html">Publications</a>
+        <a href="contact.html">Contact</a>
       </div>
     </footer>
     <script src="assets/js/theme.js"></script>
