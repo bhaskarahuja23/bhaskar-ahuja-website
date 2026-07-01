@@ -43,9 +43,15 @@ body {
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
-  opacity: 0.95;
+  opacity: 1;
+}
+.site-header,
+.page-shell,
+.site-footer {
+  position: relative;
+  z-index: 1;
 }
 img { max-width: 100%; display: block; }
 a { color: var(--accent); text-decoration: none; }

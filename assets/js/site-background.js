@@ -20,37 +20,37 @@
   function palette(dark) {
     return dark
       ? {
-          space: 'rgba(9, 16, 22, 0.38)',
-          earthA: 'rgba(39, 118, 142, 0.34)',
-          earthB: 'rgba(21, 76, 92, 0.24)',
-          limb: 'rgba(107, 211, 224, 0.42)',
-          orbit: 'rgba(143, 209, 226, 0.18)',
-          orbitStrong: 'rgba(143, 209, 226, 0.34)',
-          debris: 'rgba(204, 221, 229, 0.46)',
-          satellite: 'rgba(255, 198, 104, 0.72)',
-          track: 'rgba(98, 198, 184, 0.45)',
-          star: 'rgba(210, 226, 234, 0.18)'
+          space: 'rgba(9, 16, 22, 0.5)',
+          earthA: 'rgba(46, 145, 170, 0.58)',
+          earthB: 'rgba(23, 83, 104, 0.42)',
+          limb: 'rgba(123, 225, 236, 0.72)',
+          orbit: 'rgba(143, 209, 226, 0.3)',
+          orbitStrong: 'rgba(143, 209, 226, 0.48)',
+          debris: 'rgba(218, 232, 238, 0.72)',
+          satellite: 'rgba(255, 198, 104, 0.9)',
+          track: 'rgba(98, 198, 184, 0.64)',
+          star: 'rgba(210, 226, 234, 0.28)'
         }
       : {
-          space: 'rgba(218, 229, 232, 0.34)',
-          earthA: 'rgba(112, 171, 184, 0.26)',
-          earthB: 'rgba(70, 126, 142, 0.16)',
-          limb: 'rgba(47, 125, 114, 0.27)',
-          orbit: 'rgba(40, 72, 95, 0.12)',
-          orbitStrong: 'rgba(40, 72, 95, 0.22)',
-          debris: 'rgba(47, 77, 94, 0.34)',
-          satellite: 'rgba(181, 94, 38, 0.54)',
-          track: 'rgba(47, 125, 114, 0.32)',
-          star: 'rgba(65, 86, 101, 0.12)'
+          space: 'rgba(204, 222, 228, 0.46)',
+          earthA: 'rgba(97, 166, 184, 0.45)',
+          earthB: 'rgba(58, 122, 145, 0.28)',
+          limb: 'rgba(34, 116, 108, 0.54)',
+          orbit: 'rgba(40, 72, 95, 0.22)',
+          orbitStrong: 'rgba(40, 72, 95, 0.36)',
+          debris: 'rgba(37, 68, 86, 0.56)',
+          satellite: 'rgba(174, 82, 30, 0.78)',
+          track: 'rgba(34, 116, 108, 0.5)',
+          star: 'rgba(65, 86, 101, 0.2)'
         };
   }
 
   function earthGeometry() {
     const mobile = width < 720;
-    const radius = Math.max(width, height) * (mobile ? 0.54 : 0.48);
+    const radius = Math.max(width, height) * (mobile ? 0.5 : 0.42);
     return {
-      x: width * (mobile ? 0.72 : 0.83),
-      y: height * (mobile ? 1.04 : 1.02),
+      x: width * (mobile ? 0.72 : 0.78),
+      y: height * (mobile ? 0.9 : 0.82),
       radius
     };
   }
@@ -84,17 +84,19 @@
         ];
 
     orbiters = bands.flatMap(([scale, tilt, phase], bandIndex) => {
-      const debrisCount = bandIndex === 0 ? 5 : 7;
+      const debrisCount = bandIndex === 0 ? 6 : 8;
       return Array.from({ length: debrisCount }, (_, i) => {
         const satellite = i === Math.floor(debrisCount / 2) && bandIndex % 2 === 0;
+        const trackedDebris = !satellite && (i + bandIndex) % 4 === 0;
         return {
           bandIndex,
           scale,
           tilt,
           phase: phase + (i / debrisCount) * TAU + Math.random() * 0.25,
           speed: (satellite ? 0.0048 : 0.0028 + Math.random() * 0.0022) * (bandIndex % 2 ? -1 : 1),
-          size: satellite ? 3.2 : 1.2 + Math.random() * 1.5,
+          size: satellite ? 4.2 : trackedDebris ? 2.8 : 1.5 + Math.random() * 1.7,
           satellite,
+          trackedDebris,
           pulseOffset: Math.random() * 120
         };
       });
@@ -193,7 +195,7 @@
       ctx.translate(earth.x, earth.y - earth.radius * 0.36);
       ctx.rotate(orbiter.tilt);
       ctx.strokeStyle = orbiter.bandIndex % 2 ? colors.orbit : colors.orbitStrong;
-      ctx.lineWidth = orbiter.bandIndex % 2 ? 0.9 : 1.15;
+      ctx.lineWidth = orbiter.bandIndex % 2 ? 1.15 : 1.45;
       ctx.setLineDash(orbiter.bandIndex % 2 ? [7, 10] : [1, 0]);
       ctx.beginPath();
       ctx.ellipse(0, 0, base, ry, 0, 0, TAU);
@@ -238,13 +240,20 @@
           satellite: colors.satellite.replace(/[\d.]+\)$/u, `${alpha * 0.78})`)
         });
       } else {
-        ctx.fillStyle = colors.debris.replace(/[\d.]+\)$/u, `${alpha * 0.55})`);
+        ctx.fillStyle = colors.debris.replace(/[\d.]+\)$/u, `${alpha * (orbiter.trackedDebris ? 0.86 : 0.62)})`);
         ctx.beginPath();
         ctx.arc(point.x, point.y, orbiter.size, 0, TAU);
         ctx.fill();
+        if (orbiter.trackedDebris) {
+          ctx.strokeStyle = colors.track.replace(/[\d.]+\)$/u, `${alpha * 0.42})`);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, orbiter.size + 5, 0, TAU);
+          ctx.stroke();
+        }
       }
 
-      if (orbiter.satellite && (tick + orbiter.pulseOffset) % 190 < 1) {
+      if ((orbiter.satellite || orbiter.trackedDebris) && (tick + orbiter.pulseOffset) % 170 < 1) {
         sensorPulses.push({ x: point.x, y: point.y, born: tick, sensor });
       }
     });
