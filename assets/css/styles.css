@@ -485,14 +485,19 @@ p { margin: 0 0 1rem; max-width: 68ch; color: var(--text-muted); }
   font-size: 0.78rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  background: var(--accent-soft);
-  color: var(--bg-elevated);
+  background: color-mix(in srgb, var(--accent-strong) 88%, var(--highlight) 12%);
+  color: #ffffff;
   padding: 0.28rem 0.55rem;
   border-radius: 999px;
   margin-right: 0.4rem;
   margin-bottom: 0.35rem;
+  border: 1px solid color-mix(in srgb, var(--accent-strong) 72%, var(--border));
 }
-.pill--soft { background: var(--code-bg); color: var(--text); }
+.pill--soft {
+  background: color-mix(in srgb, var(--highlight) 18%, var(--bg-elevated));
+  color: var(--accent-strong);
+  border-color: color-mix(in srgb, var(--highlight) 34%, var(--border));
+}
 .filters {
   display: grid;
   gap: 1rem;
@@ -937,6 +942,40 @@ p { margin: 0 0 1rem; max-width: 68ch; color: var(--text-muted); }
 .cv-frame { width: 100%; min-height: 76vh; border: 1px solid var(--border); border-radius: 0.9rem; background: var(--bg-elevated); }
 .icon-button { border-radius: 999px; padding: 0.35rem 0.7rem; }
 .social-list a.github-icon svg { width: 19px; height: 19px; }
+
+.publication-meta .pill:first-child {
+  background: color-mix(in srgb, var(--highlight) 82%, var(--accent-strong) 18%);
+  border-color: color-mix(in srgb, var(--highlight) 68%, var(--border));
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .pill,
+:root[data-theme="dark"] .tag {
+  background: color-mix(in srgb, var(--accent) 26%, var(--bg-elevated));
+  color: var(--accent-strong);
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--border));
+}
+
+:root[data-theme="dark"] .pill--soft {
+  background: color-mix(in srgb, var(--highlight) 22%, var(--bg-elevated));
+  color: var(--highlight);
+  border-color: color-mix(in srgb, var(--highlight) 42%, var(--border));
+}
+
+:root[data-theme="dark"] .publication-meta .pill:first-child {
+  background: color-mix(in srgb, var(--highlight) 28%, var(--bg-elevated));
+  color: var(--highlight);
+  border-color: color-mix(in srgb, var(--highlight) 48%, var(--border));
+}
+
+:root[data-theme="dark"] .panel,
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .publication-card,
+:root[data-theme="dark"] .timeline-item,
+:root[data-theme="dark"] .gallery-card {
+  background: color-mix(in srgb, var(--bg-elevated) 86%, #111);
+  border-color: color-mix(in srgb, var(--border) 78%, var(--accent));
+}
 
 @media (max-width: 900px) {
   .grid-2, .grid-3, .profile-row { grid-template-columns: 1fr; }
