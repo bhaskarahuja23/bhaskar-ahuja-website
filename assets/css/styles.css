@@ -279,11 +279,11 @@ p { margin: 0 0 1rem; max-width: 68ch; color: var(--text-muted); }
   box-shadow: var(--shadow);
 }
 .hero-profile-panel img {
-  width: min(320px, 100%);
-  aspect-ratio: 4 / 5;
-  border-radius: 0.9rem;
+  width: min(270px, 100%);
+  aspect-ratio: 1;
+  border-radius: 50%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center;
   background: #e8eef1;
   border: 1px solid var(--border);
 }
@@ -656,7 +656,7 @@ p { margin: 0 0 1rem; max-width: 68ch; color: var(--text-muted); }
 }
 .timeline-item {
   display: grid;
-  grid-template-columns: 9rem minmax(0, 1fr);
+  grid-template-columns: 10rem minmax(0, 1fr);
   gap: 1rem;
   border: 1px solid var(--border);
   border-radius: 0.9rem;
@@ -664,11 +664,22 @@ p { margin: 0 0 1rem; max-width: 68ch; color: var(--text-muted); }
   background: color-mix(in srgb, var(--bg) 86%, var(--bg-elevated));
 }
 .timeline-year {
-  color: var(--accent);
-  font-weight: 800;
-  letter-spacing: 0.04em;
+  align-self: start;
+  display: inline-flex;
+  justify-content: center;
+  width: fit-content;
+  min-width: 7.25rem;
+  color: var(--accent-strong);
+  font-weight: 900;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  font-size: 0.78rem;
+  font-size: 0.92rem;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg-elevated));
+  border: 1px solid color-mix(in srgb, var(--accent) 26%, var(--border));
 }
 .metrics-grid {
   display: grid;
@@ -983,7 +994,7 @@ p { margin: 0 0 1rem; max-width: 68ch; color: var(--text-muted); }
 .author-me { color: var(--accent); font-weight: 600; }
 .profile-row { display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: center; gap: 1.5rem; }
 .profile-row img { width: 180px; aspect-ratio: 1; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
-.timeline-date { color: var(--accent); font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.78rem; }
+.timeline-date { color: var(--accent-strong); font-weight: 900; letter-spacing: 0.02em; text-transform: uppercase; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
 .cv-frame { width: 100%; min-height: 76vh; border: 1px solid var(--border); border-radius: 0.9rem; background: var(--bg-elevated); }
 .icon-button { border-radius: 999px; padding: 0.35rem 0.7rem; }
 .social-list a.github-icon svg { width: 19px; height: 19px; }
